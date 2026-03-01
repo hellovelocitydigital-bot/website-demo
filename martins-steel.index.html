@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martins Steel — Built to Last</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #1a1a1e;
+    --iron: #2c2c32;
+    --rust: #c94a1e;
+    --rust-light: #e05a2a;
+    --chrome: #d4d4d8;
+    --white: #f5f5f0;
+    --dim: #888890;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--steel);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(26,26,30,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,74,30,0.2);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--rust); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+  }
+
+  nav ul a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--rust); }
+
+  .nav-cta {
+    background: var(--rust);
+    color: var(--white) !important;
+    padding: 0.6rem 1.5rem;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--rust-light) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(201,74,30,0.08) 0%, transparent 50%),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.01) 40px,
+        rgba(255,255,255,0.01) 41px
+      );
+  }
+
+  .hero-accent {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50%;
+    background: var(--iron);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    overflow: hidden;
+  }
+
+  .hero-accent-img {
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(to bottom, rgba(26,26,30,0.6) 0%, rgba(26,26,30,0.2) 50%, rgba(26,26,30,0.7) 100%),
+      url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80') center/cover no-repeat;
+  }
+
+  .hero-content {
+    padding: 8rem 4rem 4rem 4rem;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--rust);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--rust);
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--chrome);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--rust);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--rust-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--white); }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 3rem;
+    left: 4rem;
+    display: flex;
+    gap: 3rem;
+    z-index: 2;
+    animation: fadeInUp 1s 0.4s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .stat-num span { color: var(--rust); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 0.25rem;
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 4rem 4rem 6rem;
+    animation: fadeIn 1.2s 0.3s ease both;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--rust);
+    padding: 0.8rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,245,240,0.85);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ticker-item::after {
+    content: '◆';
+    font-size: 0.5rem;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 8rem 4rem;
+    position: relative;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .section-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rust);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+
+  .section-link:hover { gap: 1rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--iron);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--rust);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover { background: #33333a; }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(201,74,30,0.15);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+
+  .service-card:hover .service-num { color: rgba(201,74,30,0.3); }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  /* WHY US */
+  .why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+  }
+
+  .why-img {
+    background:
+      linear-gradient(to right, rgba(26,26,30,0) 0%, rgba(26,26,30,0.3) 100%),
+      url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1200&q=80') center/cover no-repeat;
+    position: relative;
+  }
+
+  .why-content {
+    background: var(--iron);
+    padding: 6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .feature-list {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .feature-item:last-child { border-bottom: none; }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(201,74,30,0.15);
+    border: 1px solid rgba(201,74,30,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  .feature-text h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-text p {
+    font-size: 0.875rem;
+    color: var(--dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* PROJECTS */
+  .projects {
+    padding: 8rem 4rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    gap: 4px;
+    margin-top: 4rem;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--iron);
+  }
+
+  .project-card:first-child { grid-row: 1 / 3; }
+
+  .project-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+    filter: brightness(0.6);
+  }
+
+  .project-card:hover .project-bg { transform: scale(1.05); filter: brightness(0.5); }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,26,30,0.95) 0%, transparent 60%);
+  }
+
+  .project-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+  }
+
+  .project-type {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    padding: 6rem 4rem;
+    background: var(--rust);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30rem;
+    position: absolute;
+    top: -4rem;
+    left: -1rem;
+    opacity: 0.1;
+    line-height: 1;
+    color: rgba(0,0,0,0.3);
+  }
+
+  .testimonial-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .testimonial-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: rgba(245,245,240,0.95);
+  }
+
+  .testimonial-author {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,245,240,0.7);
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-item-icon {
+    color: var(--rust);
+    font-size: 1.1rem;
+    margin-top: 0.1rem;
+  }
+
+  .contact-item-text {
+    font-size: 0.9rem;
+    color: var(--chrome);
+    line-height: 1.5;
+  }
+
+  .contact-item-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  input, textarea, select {
+    background: var(--iron);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 2px solid rgba(201,74,30,0.3);
+    color: var(--white);
+    padding: 0.9rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-bottom-color: var(--rust);
+    background: #33333a;
+  }
+
+  textarea { min-height: 120px; resize: vertical; }
+
+  select option { background: var(--iron); }
+
+  .btn-submit {
+    background: var(--rust);
+    color: var(--white);
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+
+  .btn-submit:hover { background: var(--rust-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: #111113;
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(201,74,30,0.2);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .footer-logo span { color: var(--rust); }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--rust); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,74,30,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 1.5rem 2rem; }
+    nav ul { gap: 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-accent { display: none; }
+    .hero-content { padding: 8rem 2rem 4rem; }
+    .hero-right { display: none; }
+    .hero-stats { left: 2rem; }
+    .services { padding: 5rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 4px; }
+    .why { grid-template-columns: 1fr; }
+    .why-img { height: 50vw; }
+    .why-content { padding: 4rem 2rem; }
+    .projects { padding: 5rem 2rem; }
+    .projects-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .project-card:first-child { grid-row: auto; }
+    .contact { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">MARTINS <span>STEEL</span></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent"><div class="hero-accent-img"></div></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Structural Steel & Construction</div>
+    <h1>
+      FORGED
+      <em>IN STEEL,</em>
+      BUILT
+      TO LAST
+    </h1>
+    <p class="hero-desc">Martins Steel delivers precision-engineered steel structures and construction solutions. From commercial towers to industrial facilities — we build what endures.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">
+        Request a Quote
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14M9 1l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#projects" class="btn-secondary">View Our Work →</a>
+    </div>
+  </div>
+
+  <div class="hero-right"></div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">25<span>+</span></div>
+      <div class="stat-label">Years in Business</div>
+    </div>
+    <div>
+      <div class="stat-num">400<span>+</span></div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div>
+      <div class="stat-num">98<span>%</span></div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Structural Steel Fabrication</span>
+    <span class="ticker-item">Commercial Construction</span>
+    <span class="ticker-item">Industrial Facilities</span>
+    <span class="ticker-item">Steel Erection</span>
+    <span class="ticker-item">Project Management</span>
+    <span class="ticker-item">Site Engineering</span>
+    <span class="ticker-item">Safety Excellence</span>
+    <span class="ticker-item">Structural Steel Fabrication</span>
+    <span class="ticker-item">Commercial Construction</span>
+    <span class="ticker-item">Industrial Facilities</span>
+    <span class="ticker-item">Steel Erection</span>
+    <span class="ticker-item">Project Management</span>
+    <span class="ticker-item">Site Engineering</span>
+    <span class="ticker-item">Safety Excellence</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">OUR SERVICES</h2>
+    </div>
+    <a href="#contact" class="section-link">All Services →</a>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Steel Fabrication</div>
+      <p class="service-desc">Custom structural steel components fabricated to exact specifications. Our in-house facility handles beams, columns, trusses, and complex architectural elements with CNC precision.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Steel Erection</div>
+      <p class="service-desc">Expert on-site assembly of steel structures with fully certified ironworkers. We manage every lift, bolt, and weld with unwavering attention to safety and structural integrity.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Commercial Construction</div>
+      <p class="service-desc">Full-service commercial builds from ground-breaking to handover. Office towers, retail centers, warehouses — we deliver on time and on budget, every project.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Industrial Facilities</div>
+      <p class="service-desc">Heavy-duty construction for manufacturing plants, processing facilities, and logistics hubs. Engineered for maximum load capacity and long-term operational performance.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Design-Build</div>
+      <p class="service-desc">Integrated design and construction under one roof. Our engineering team works alongside fabrication and site crews to streamline delivery and reduce total project cost.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Structural Upgrades</div>
+      <p class="service-desc">Retrofit, reinforce, and expand existing structures. We assess, engineer, and execute seismic upgrades, capacity enhancements, and life extension projects.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY US -->
+<section class="why" id="about">
+  <div class="why-img"></div>
+  <div class="why-content">
+    <div class="section-tag">Why Martins Steel</div>
+    <h2 class="section-title">THE MARTINS<br>DIFFERENCE</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">🏗️</div>
+        <div class="feature-text">
+          <h4>End-to-End Capability</h4>
+          <p>From engineering and fabrication to erection and finishing — one team, one contract, zero gaps. We eliminate the friction of multi-contractor coordination.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔩</div>
+        <div class="feature-text">
+          <h4>Precision Manufacturing</h4>
+          <p>Our 40,000 sq ft fabrication shop runs CNC plasma cutters, press brakes, and certified welding bays to tolerance levels that set industry benchmarks.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-text">
+          <h4>Safety-First Culture</h4>
+          <p>EMR of 0.72 and over 500,000 hours without a lost-time incident. Safety isn't a checkbox at Martins — it's engineered into every process and every person.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📐</div>
+        <div class="feature-text">
+          <h4>Schedule Certainty</h4>
+          <p>97% of Martins Steel projects deliver on or ahead of schedule. Our integrated planning system gives owners real-time visibility from kickoff to completion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Our Portfolio</div>
+      <h2 class="section-title">RECENT PROJECTS</h2>
+    </div>
+    <a href="#contact" class="section-link">All Projects →</a>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80')"></div>
+      <div class="project-overlay"></div>
+      <div class="project-info">
+        <div class="project-type">Commercial Tower</div>
+        <div class="project-name">Northgate Office Complex — 14 Floors, 28,000 Tons of Steel</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1565008576549-57569a49371d?w=800&q=80')"></div>
+      <div class="project-overlay"></div>
+      <div class="project-info">
+        <div class="project-type">Industrial</div>
+        <div class="project-name">Eastside Logistics Hub</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80')"></div>
+      <div class="project-overlay"></div>
+      <div class="project-info">
+        <div class="project-type">Structural Retrofit</div>
+        <div class="project-name">Heritage Bridge Reinforce</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=800&q=80')"></div>
+      <div class="project-overlay"></div>
+      <div class="project-info">
+        <div class="project-type">Manufacturing</div>
+        <div class="project-name">Apex Processing Plant</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80')"></div>
+      <div class="project-overlay"></div>
+      <div class="project-info">
+        <div class="project-type">Multi-Use Development</div>
+        <div class="project-name">Westfield District Center</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+  <div class="testimonial-inner">
+    <p class="testimonial-text">"Martins Steel delivered a structurally complex project four weeks ahead of schedule and under budget. Their fabrication quality and on-site coordination are in a class of their own. They're the only steel contractor we'll call."</p>
+    <div class="testimonial-author">— Robert Chukwuemeka, Project Director · Avante Development Group</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-info">
+    <div class="section-tag">Let's Build Together</div>
+    <h2 class="section-title">GET A<br>FREE QUOTE</h2>
+    <p>Ready to start your next project? Our team will review your requirements and respond with a detailed preliminary estimate within 48 hours.</p>
+    <div class="contact-detail">
+      <div class="contact-item">
+        <span class="contact-item-icon">📍</span>
+        <div>
+          <div class="contact-item-label">Office</div>
+          <div class="contact-item-text">14 Industrial Drive, Lagos, Nigeria</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">📞</span>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <div class="contact-item-text">+234 800 MARTINS</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">✉️</span>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-text">info@martinssteel.com</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <div style="background:var(--iron);padding:1.5rem 2rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--rust)">48HR</div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim)">Quote Turnaround</div>
+      </div>
+      <div style="background:var(--iron);padding:1.5rem 2rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--rust)">FREE</div>
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim)">Initial Consultation</div>
+      </div>
+    </div>
+  </div>
+
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="John" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="john@company.com" required>
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+234 ...">
+    </div>
+    <div class="form-group">
+      <label>Project Type</label>
+      <select>
+        <option value="">Select a service...</option>
+        <option>Steel Fabrication</option>
+        <option>Steel Erection</option>
+        <option>Commercial Construction</option>
+        <option>Industrial Facilities</option>
+        <option>Design-Build</option>
+        <option>Structural Upgrade</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Project Details</label>
+      <textarea placeholder="Tell us about your project — size, timeline, location..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit">Send Request →</button>
+    <div id="form-msg" style="font-size:0.85rem;color:var(--rust);display:none;letter-spacing:1px;">✓ Message sent! We'll be in touch within 48 hours.</div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MARTINS <span>STEEL</span></div>
+  <div class="footer-copy">© 2026 Martins Steel Ltd. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-msg').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => { document.getElementById('form-msg').style.display = 'none'; }, 5000);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeInUp 0.7s ease forwards';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .feature-item, .project-card').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
